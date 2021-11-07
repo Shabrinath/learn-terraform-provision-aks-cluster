@@ -7,6 +7,7 @@ stages:
       - task: TerraformInstaller@0
         inputs:
           terraformVersion: '0.12.3'
+    - job: 
       steps:
       - task: TerraformTaskV2@2
         inputs:
@@ -17,11 +18,13 @@ stages:
           backendAzureRmStorageAccountName: 'terra1sa'
           backendAzureRmContainerName: 'terra-container'
           backendAzureRmKey: 'terra1sa'
+    - job: 
       steps:
       - task: TerraformTaskV2@2
         inputs:
           provider: 'azurerm'
           command: 'validate'
+    - job: 
       steps:
       - task: TerraformTaskV2@2
         inputs:
