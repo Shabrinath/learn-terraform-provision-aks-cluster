@@ -1,0 +1,29 @@
+stages:
+  - stage: validate
+    jobs:
+    - job: validate 
+      continueOnError: false
+      steps: 
+      - task: TerraformInstaller@0
+        inputs:
+          terraformVersion: '0.12.3'
+      - task: TerraformTaskV2@2
+        inputs:
+          provider: 'azurerm'
+          command: 'init'
+          backendServiceArm: 'Pay-As-You-Go(a8b52a2b-9c81-4d15-88b1-f7e51e545b53)'
+          backendAzureRmResourceGroupName: 'terraform-AKS-RG'
+          backendAzureRmStorageAccountName: 'terra1sa'
+          backendAzureRmContainerName: 'terra-container'
+          backendAzureRmKey: 'terra1sa'
+      - task: TerraformTaskV2@2
+        inputs:
+          provider: 'azurerm'
+          command: 'validate'
+      - task: TerraformTaskV2@2
+        inputs:
+          provider: 'azurerm'
+          command: 'apply'
+          environmentServiceNameAzureRM: 'Pay-As-You-Go(a8b52a2b-9c81-4d15-88b1-f7e51e545b53)'
+
+  
